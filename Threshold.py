@@ -27,7 +27,7 @@ def getGray(image):
 
     # grayImage.show()
     # redChannelImage.show()
-    greenChannelImage.show()
+    # greenChannelImage.show()
     # blueChannelImage.show()
     return greenChannelImage
 
@@ -44,7 +44,7 @@ def getEdge(image):
 
     #Gaussian Filter
     grayGausImage = grayImage.filter(ImageFilter.GaussianBlur)
-    grayGausImage.show()
+    # grayGausImage.show()
 
     pix = np.array(grayGausImage)
     red = pix[:,:,0].astype(float)
@@ -67,33 +67,33 @@ def getEdge(image):
                         binaryImage[i,j] = 0
 
     binaryImage = Image.fromarray(binaryImage).convert("L")
-    binaryImage.show()
+    # binaryImage.show()
 
     edgeImage = binaryImage.filter(ImageFilter.Kernel((3, 3), (-1, -2, -1, -2, 12,
                                             -2, -1, -2, -1), 1, 0))
     
-    edgeImage.show()
+    # edgeImage.show()
     return edgeImage
 
 
 # prettyImage = Image.open(r"Coastline Segmentation\greyIsland.png")
 # image = Image.open(r"Coastline Segmentation\map-view (2).png")
 # grayClean = getGray(Image.open(r"Coastline Segmentation\Timelapse\red2021.png"))
-grayClean = getGray(Image.open(r"Coastline Segmentation\Timelapse\red2009.png"))
+grayClean = getGray(Image.open(r"Timelapse\red2009.png"))
 prettyImage = grayClean
 st = time.time()
 lt = st
 times = []
 
-# for year in range(2001, 2022):
-for year in range(2009, 2010):
-    filename = "Coastline Segmentation\Timelapse\\red"
+for year in range(2001, 2022):
+# for year in range(2009, 2010):
+    filename = "Timelapse\\red"
     filename += str(year)
     filename += ".png"
     print(filename)
     image = Image.open(filename)
     grayClean = getGray(Image.open(filename))
-    grayClean.save("Coastline Segmentation\BinaryTimelapse\\"+str(year)+".png")
+    # grayClean.save("BinaryTimelapse\\"+str(year)+".png")
 
 
     r,g,b,o = image.split()
@@ -139,7 +139,7 @@ for year in range(2009, 2010):
                             if not (x, y) in worklist:
                                 worklist.append((x, y))
         # prettyImage.show()
-        grayClean.save("Coastline Segmentation\TimeTest\\"+str(year)+".png")
+        grayClean.save("TimeTest\\"+str(year)+".png")
     else:
         print("Error: Edge not found in selected area")
         # edgeImage.show()
@@ -149,9 +149,9 @@ for year in range(2009, 2010):
     times.append(et-lt)
     lt = et
 prettyImage.show()
-prettyImage.save("Coastline Segmentation\TimeTest\\timelapseLetsgo.png")
+prettyImage.save("TimeTest\\timelapseLetsgo.png")
 
-# print("Average time: ", sum(times)/len(times))
+print("Average time: ", sum(times)/len(times))
 
 
 
